@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Get Help | Haven</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">HAVEN</div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="gethelp.html">Get Help</a>
+            <a href="askdev.html">Ask DEV</a>
+            <a href="about.html">About</a>
+            <button class="sos-btn">SOS</button>
+        </div>
+    </nav>
+
+
+    <!-- Get Help -->
+    <main class="help-page">
+
+        <div class="help-intro">
+
+            <p class="section-tag">DEV IS ONLINE</p>
+
+            <h1>Tell me what's happening.</h1>
+
+            <p>
+                You don't have to explain everything.
+                Choose what feels closest to your situation.
+            </p>
+
+        </div>
+
+
+        <!-- Situation choices -->
+<div class="situation-grid">
+
+    <button class="situation-card"
+    onclick="document.querySelector('.dev-response h2').innerText='Stay where you feel safest.'; document.querySelector('.dev-response p').innerText='I am with you. Move towards a public or well-lit place if you can. If you are in immediate danger, use SOS.'">
+        <span>01</span>
+        <h2>I feel unsafe</h2>
+        <p>Something doesn't feel right.</p>
+    </button>
+
+    <button class="situation-card"
+        onclick="showSituation('following')">
+        <span>02</span>
+        <h2>Someone is following me</h2>
+        <p>I need help getting somewhere safe.</p>
+    </button>
+
+    <button class="situation-card"
+        onclick="showSituation('lost')">
+        <span>03</span>
+        <h2>I'm lost</h2>
+        <p>I don't know where I am or where to go.</p>
+    </button>
+
+    <button class="situation-card"
+        onclick="showSituation('talk')">
+        <span>04</span>
+        <h2>I need someone to talk to</h2>
+        <p>I need support right now.</p>
+    </button>
+
+</div>
+
+
+        <!-- DEV response -->
+        <div class="dev-response">
+
+            <div class="dev-status">
+                <span></span>
+                DEV ONLINE
+            </div>
+
+            <h2>I'm here with you.</h2>
+
+            <p>
+                Select a situation above and I'll help you
+                figure out the safest next step.
+            </p>
+            <div class="dev-actions">
+
+    <button class="dev-action" onclick="window.open('https://www.google.com/maps/search/police+station+hospital+near+me', '_blank')">📍 Share Location</button>
+
+    <button class="dev-action emergency-action" onclick="document.getElementById('sosPanel').classList.add('active')">🚨 SOS</button>
+    <button class="dev-action" onclick="window.open('https://www.google.com/maps/search/police+station+hospital+near+me', '_blank')">🏪 Find Safe Place</button>
+</div>
+
+        </div>
+        <!-- SOS PANEL -->
+
+<div class="sos-panel" id="sosPanel">
+
+    <div class="sos-panel-content">
+
+        <p class="sos-label">EMERGENCY MODE</p>
+
+        <h2>Are you in immediate danger?</h2>
+
+        <p>
+            Haven can help you take the next step.
+            Stay calm and move towards a safe place if possible.
+        </p>
+
+        <div class="sos-panel-actions">
+
+           <button class="call-btn" onclick="window.location.href='tel:112'">📞 Call Emergency</button>
+
+            <button class="close-sos" onclick="document.getElementById('sosPanel').classList.remove('active')">I'm safe — Close</button>
+
+        </div>
+
+    </div>
+
+</div>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+    <script>
+function showSituation(type) {
+
+    const title = document.querySelector(".dev-response h2");
+    const text = document.querySelector(".dev-response p");
+
+    if (type === "unsafe") {
+        title.innerText = "Stay where you feel safest.";
+        text.innerText = "I'm with you. Move towards a public or well-lit place if you can. If you are in immediate danger, use SOS.";
+    }
+
+    if (type === "following") {
+        title.innerText = "Don't go home yet.";
+        text.innerText = "Move towards a crowded place, shop, security desk, or police station. Avoid confronting the person. Use SOS if you feel in immediate danger.";
+    }
+
+    if (type === "lost") {
+        title.innerText = "Let's get you somewhere safe.";
+        text.innerText = "Stay in a public place and check your location. Use Share Location or Find Safe Place if you need help.";
+    }
+
+    if (type === "talk") {
+        title.innerText = "You don't have to handle it alone.";
+        text.innerText = "Take a breath. Tell me what's going on, one step at a time. I'm here to help you figure out what to do next.";
+    }
+}
+</script>
+
+</body>
+
+</html>

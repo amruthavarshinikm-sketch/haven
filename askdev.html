@@ -1,0 +1,450 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ask DEV | Haven</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVIGATION
+         ========================= -->
+
+    <nav>
+
+        <div class="logo">HAVEN</div>
+
+        <div class="nav-links">
+
+            <a href="index.html">Home</a>
+            <a href="gethelp.html">Get Help</a>
+            <a href="askdev.html">Ask DEV</a>
+            <a href="about.html">About</a>
+
+            <button class="sos-btn">SOS</button>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         ASK DEV PAGE
+         ========================= -->
+
+    <main class="askdev-page">
+
+
+        <!-- HEADER -->
+
+        <div class="askdev-header">
+
+            <p class="section-tag">
+                DEV // DIGITAL GUARDIAN
+            </p>
+
+            <h1>
+                Talk to DEV.
+            </h1>
+
+            <p>
+                You don't have to know exactly what to say.
+                Just start talking.
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             CHAT WINDOW
+             ========================= -->
+
+        <div class="chat-window" id="chatWindow">
+
+
+            <!-- DEV FIRST MESSAGE -->
+
+            <div class="dev-message">
+
+                <div class="message-label">
+
+                    <span></span>
+
+                    DEV ONLINE
+
+                </div>
+
+                <p>
+                    Hey. I'm DEV. Before we begin, what's your name?
+                </p>
+
+            </div>
+
+
+            <!-- QUICK QUESTIONS -->
+
+            <div class="quick-questions" id="quickQuestions">
+
+                <button>
+                    I'm feeling unsafe
+                </button>
+
+                <button>
+                    Someone is following me
+                </button>
+
+                <button>
+                    I'm lost
+                </button>
+
+                <button>
+                    I need advice
+                </button>
+
+            </div>
+
+
+            <!-- TYPING INDICATOR -->
+
+            <div class="dev-typing" id="devTyping">
+
+                <div class="message-label">
+
+                    <span></span>
+
+                    DEV
+
+                </div>
+
+                <div class="typing-dots">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+            </div>
+
+
+            <!-- INPUT -->
+
+            <div class="chat-input-area">
+
+                <input
+                    type="text"
+                    id="userInput"
+                    placeholder="Enter your name..."
+                    autocomplete="off"
+                >
+
+               <button id="sendButton" onclick="sendDevMessage()">
+                SEND
+                </button>
+
+            </div>
+
+
+            <!-- PRIVACY NOTE -->
+
+            <p class="chat-note">
+                Your information is used only to respond to your request.
+            </p>
+
+
+        </div>
+
+
+        <!-- =========================
+             DEV EMERGENCY PANEL
+             ========================= -->
+
+        <div class="dev-sos-panel" id="devSosPanel">
+
+            <div class="dev-sos-content">
+
+                <p class="sos-label">
+                    DEV // EMERGENCY MODE
+                </p>
+
+                <h2>
+                    Are you in immediate danger?
+                </h2>
+
+                <p>
+                    Stay calm. Move towards a safe or public place
+                    if possible. Choose an action below.
+                </p>
+
+
+                <div class="dev-sos-actions">
+
+                    <button id="devCall112">
+                        📞 Call 112
+                    </button>
+
+                    <button id="devShareLocation">
+                        📍 Share Location
+                    </button>
+
+                    <button id="devCloseSos">
+                        ✓ I'm Safe
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- =========================
+         JAVASCRIPT
+         ========================= -->
+         
+
+   <script src="script.js"></script>
+
+<script>
+    
+let devStep = "name";
+
+let devName = "";
+let devAge = "";
+let devLocation = "";
+let devEmail = "";
+
+function addDevUserMessage(message) {
+
+    const chat = document.getElementById("chatWindow");
+    const inputArea = document.querySelector(".chat-input-area");
+
+    const box = document.createElement("div");
+    box.className = "user-message";
+
+    const p = document.createElement("p");
+    p.innerText = message;
+
+    box.appendChild(p);
+
+    chat.insertBefore(box, inputArea);
+}
+
+
+function addDevReply(message) {
+
+    const chat = document.getElementById("chatWindow");
+    const inputArea = document.querySelector(".chat-input-area");
+
+    const box = document.createElement("div");
+    box.className = "dev-message";
+
+    const label = document.createElement("div");
+    label.className = "message-label";
+
+    const dot = document.createElement("span");
+
+    label.appendChild(dot);
+    label.appendChild(document.createTextNode("DEV"));
+
+    const p = document.createElement("p");
+    p.innerText = message;
+
+    box.appendChild(label);
+    box.appendChild(p);
+
+    chat.insertBefore(box, inputArea);
+}
+
+
+function sendDevMessage() {
+
+    const input = document.getElementById("userInput");
+
+    const message = input.value.trim();
+
+    if (message === "") {
+        return;
+    }
+
+    addDevUserMessage(message);
+
+    input.value = "";
+
+
+    // NAME
+    if (devStep === "name") {
+
+        devName = message;
+
+        devStep = "age";
+
+        input.placeholder = "Enter your age...";
+
+        addDevReply(
+            "Nice to meet you, " +
+            devName +
+            ". How old are you?"
+        );
+
+        return;
+    }
+
+
+    // AGE
+    if (devStep === "age") {
+
+        if (
+            isNaN(message) ||
+            Number(message) < 1 ||
+            Number(message) > 120
+        ) {
+
+            addDevReply(
+                "Please enter your age as a number."
+            );
+
+            return;
+        }
+
+        devAge = message;
+
+        devStep = "location";
+
+        input.placeholder =
+            "Where are you right now?";
+
+        addDevReply(
+            "Got it. Where are you right now? You can give me your city or area."
+        );
+
+        return;
+    }
+
+
+    // LOCATION
+    if (devStep === "location") {
+
+        devLocation = message;
+
+        devStep = "email";
+
+        input.placeholder =
+            "Enter your email...";
+
+        addDevReply(
+            "Okay. What's the best email address to reach you?"
+        );
+
+        return;
+    }
+
+
+    // EMAIL
+    if (devStep === "email") {
+
+        if (
+            !message.includes("@") ||
+            !message.includes(".")
+        ) {
+
+            addDevReply(
+                "Please enter a valid email address."
+            );
+
+            return;
+        }
+
+        devEmail = message;
+
+        devStep = "grievance";
+
+        input.placeholder =
+            "Tell DEV what's happening...";
+
+        addDevReply(
+            "Thank you. I've got what I need."
+        );
+
+        setTimeout(function() {
+
+            addDevReply(
+                "So... tell me. How can I help?"
+            );
+
+        }, 700);
+
+        return;
+    }
+
+
+   // GRIEVANCE
+if (devStep === "grievance") {
+
+    devStep = "finished";
+
+    const templateParams = {
+        name: devName,
+        age: devAge,
+        location: devLocation,
+        email: devEmail,
+        grievance: message,
+        time: new Date().toLocaleString()
+    };
+
+    emailjs.send(
+        "service_ktnhmwv",
+        "template_hv0lxxs",
+        templateParams
+    )
+    .then(function() {
+
+        addDevReply(
+            "I'm listening. I've received your request. I'll help you figure out the safest next step."
+        );
+
+    })
+    .catch(function(error) {
+
+        console.error("EmailJS Error:", error);
+
+        addDevReply(
+            "I've received your request, but there was a problem sending the notification."
+        );
+
+    });
+
+    return;
+}
+
+
+    // FINISHED
+addDevReply(
+    "I'm here. Tell me anything else you think I should know."
+);
+
+}
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+    emailjs.init({
+        publicKey: "Nl7zLnJRMv7AfnSDu"
+    });
+</script>
+
+</body>
+
+</html>
