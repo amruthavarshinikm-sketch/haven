@@ -1699,3 +1699,15 @@ footer p {
     }
 
 }
+/* MOBILE IMAGE FIX */
+
+.dev-circle {
+    overflow: hidden;
+}
+
+.dev-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
