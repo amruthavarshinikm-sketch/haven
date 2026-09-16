@@ -169,7 +169,7 @@ nav {
 @media (max-width: 800px) {
 
     .nav-links a {
-        display: none;
+        display: block;
     }
 
     .hero {
